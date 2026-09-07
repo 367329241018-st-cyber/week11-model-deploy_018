@@ -164,13 +164,31 @@ st.divider()
 st.header("2) อัปโหลดภาพ X-ray")
 
 st.write(
-    "เลือกรูปภาพ X-ray ที่ต้องการแสดงในระบบ"
+    "เลือกภาพ X-ray ที่ต้องการแสดงในระบบ"
 )
 
 image_file = st.file_uploader(
     "เลือกรูปภาพ X-ray",
     type=["jpg", "jpeg", "png"]
 )
+
+if image_file is not None:
+
+    st.success(
+        f"อัปโหลดภาพ '{image_file.name}' สำเร็จ"
+    )
+
+    st.image(
+        image_file,
+        caption="ภาพ X-ray ที่อัปโหลด",
+        width="stretch"
+    )
+
+else:
+
+    st.info(
+        "กรุณาอัปโหลดภาพ X-ray เพื่อแสดงภาพ"
+    )
 
 
 # ------------------------------------------------------------
