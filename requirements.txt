@@ -4,4 +4,4 @@ pandas==2.2.2
 joblib==1.4.2
 pillow>=10.4.0
 Orange3==3.36.2
-setuptools
+setuptools>=68.0.0
