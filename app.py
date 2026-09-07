@@ -163,9 +163,7 @@ st.divider()
 
 st.header("2) อัปโหลดภาพ X-ray")
 
-st.write(
-    "เลือกภาพ X-ray ที่ต้องการแสดงในระบบ"
-)
+st.write("เลือกภาพ X-ray ที่ต้องการแสดงในระบบ")
 
 image_file = st.file_uploader(
     "เลือกรูปภาพ X-ray",
@@ -180,8 +178,7 @@ if image_file is not None:
 
     st.image(
         image_file,
-        caption="ภาพ X-ray ที่อัปโหลด",
-        width="stretch"
+        caption="ภาพ X-ray ที่อัปโหลด"
     )
 
 else:
@@ -204,7 +201,6 @@ if image_file is not None:
     st.image(
         image_file,
         caption="ภาพ X-ray ที่อัปโหลด",
-        use_container_width=True
     )
 
 else:
