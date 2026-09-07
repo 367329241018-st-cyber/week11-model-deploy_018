@@ -187,32 +187,27 @@ else:
         "กรุณาอัปโหลดภาพ X-ray เพื่อแสดงภาพ"
     )
 
-# ============================================================
-# 3. ทำนายผล
-# ============================================================
+ # --- 3.4 ปุ่มทำนายผล ---
+    if st.button("ทำนายผล"):
+        with st.spinner("กำลังประมวลผลภาพและทำนาย..."):
+            try:
+                embedding = image_to_embedding(image, embedder)
+                predicted_label, prob_dict = predict_disease(model, embedding)
 
-st.divider()
+                th_label = LABEL_MAP_TH.get(predicted_label, predicted_label)
+                confidence = prob_dict[predicted_label] * 100
 
-st.header("3) ทำนายผล")
+                st.success(f"ผลการทำนาย: **{th_label}** (ความมั่นใจ {confidence:.2f}%)")
 
-if image_file is None:
+                # แสดงความน่าจะเป็นของทุกคลาสเป็นตาราง/กราฟแท่งให้เข้าใจง่าย
+                st.write("ความน่าจะเป็นของแต่ละคลาส:")
+                st.bar_chart(prob_dict)
 
-    st.warning("กรุณาอัปโหลดภาพ X-ray ก่อนทำนายผล")
-
+            except Exception as e:
+                st.error(f"เกิดข้อผิดพลาดระหว่างการทำนาย: {e}")
+                st.write(
+                    "สาเหตุที่พบบ่อย: ไฟล์โมเดลที่เลือกไม่ใช่โมเดลชนิดเดียวกับที่ฝึกด้วย "
+                    "SqueezeNet embedding 1000 มิติ กรุณาตรวจสอบไฟล์โมเดลที่เลือก"
+                )
 else:
-
-    if model is None:
-
-        st.warning("กรุณาเลือกหรืออัปโหลดโมเดลก่อน")
-
-    else:
-
-        if st.button("ทำนายผล"):
-
-            st.info(
-                "ขณะนี้สามารถอัปโหลดและแสดงภาพ X-ray ได้แล้ว "
-                "แต่โมเดล .pkcls ที่ใช้อยู่ต้องการ Features "
-                "ในการทำนาย จึงยังไม่สามารถนำภาพ X-ray "
-                "เข้าโมเดลโดยตรงได้"
-            )
-
+    st.info("กรุณาอัปโหลดภาพ X-ray เพื่อเริ่มการทำนาย")
