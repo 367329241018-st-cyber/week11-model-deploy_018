@@ -20,7 +20,6 @@ import streamlit as st
 import joblib
 import io
 import os
-import Orange
 
 # ต้องติดตั้งไลบรารี Orange3 (ดู requirements.txt) จึงจะ import ได้
 from Orange.data import Domain, Table
